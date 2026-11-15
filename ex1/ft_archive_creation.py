@@ -30,8 +30,8 @@ if (__name__ == "__main__"):
             file2.close()
             file_input = input("Enter new file name (or empty): ")
             if (file_input):
-                file3: typing.IO[str] = open(f"{file_input}", "w")
                 print(f"Saving data to ’{file_input}’")
+                file3: typing.IO[str] = open(f"{file_input}", "w")
                 print(f"Data saved in file ’{file_input}’.")
                 file3.write(Transform)
                 file3.close()
@@ -40,10 +40,19 @@ if (__name__ == "__main__"):
 
     except FileNotFoundError:
         print("The file does not exist!")
+        if (file_input):
+            print(f"denied: ’{file_input}’")
+            print("Data not saved.")
 
     except PermissionError:
         print("You don't have permission to access this file!")
+        if (file_input):
+            print(f"denied: ’{file_input}’")
+            print("Data not saved.")
 
     except OSError:
         print("Something went wrong while accessing"
               "the file(like maybe the disk is full)!")
+        if (file_input):
+            print(f"denied: ’{file_input}’")
+            print("Data not saved.")
