@@ -2,16 +2,18 @@ def secure_archive(File: str, action: str, content: str) -> tuple[bool, str]:
     try:
         print("=== Cyber Archives Security ===")
         operation: bool = True
-        with open(f"{File}", f"{action}") as file:
-            if (action == "r"):
-                return (operation, file.read())
-            elif (action == "w"):
-                file.write(content)
-                file.write("\n")
-                return (operation, content)
-            else:
-                operation = False
-                return (operation, "Invalid action. Choose 'r' or 'w'")
+        if (action != "w" and action != "r"):
+            operation = False
+            return (operation, "Invalid action. Choose 'r' or 'w'")
+
+        else:
+            with open(f"{File}", f"{action}") as file:
+                if (action == "r"):
+                    return (operation, file.read())
+                else:
+                    file.write(content)
+                    file.write("\n")
+                    return (operation, content)
 
     except FileNotFoundError:
         operation = False
@@ -28,4 +30,4 @@ def secure_archive(File: str, action: str, content: str) -> tuple[bool, str]:
 
 
 if (__name__ == "__main__"):
-    print(secure_archive("test.txt", "w", "my name is omar"))
+    print(secure_archive("test.txt", "r", "my name is omar"))
